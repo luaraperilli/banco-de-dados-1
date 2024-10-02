@@ -54,7 +54,17 @@ ADD COLUMN mnome VARCHAR(200) NOT NULL;
 ALTER TABLE empregado
 ADD COLUMN unome VARCHAR(200) NOT NULL;
 
+# Alterações no banco para realizar os exercícios de modificação
+ALTER TABLE empregado 
+DROP COLUMN IF EXISTS pnome,
+DROP COLUMN IF EXISTS mnome,
+DROP COLUMN IF EXISTS unome;
 
+ALTER TABLE empregado 
+ADD COLUMN enome VARCHAR(200);
+
+ALTER TABLE Departamento 
+ALTER COLUMN DGERSSN DROP NOT NULL;
 
 
 
