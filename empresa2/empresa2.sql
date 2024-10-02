@@ -42,6 +42,17 @@ CREATE TABLE trabalha_em (
 ALTER TABLE trabalha_em
 add constraint minimo_horas check (horas > 0);
 
+ALTER TABLE empregado 
+DROP COLUMN enome;
+
+ALTER TABLE empregado
+ADD COLUMN pnome VARCHAR(200) NOT NULL;
+
+ALTER TABLE empregado
+ADD COLUMN mnome VARCHAR(200) NOT NULL;
+
+ALTER TABLE empregado
+ADD COLUMN unome VARCHAR(200) NOT NULL;
 
 
 
