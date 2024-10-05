@@ -1,8 +1,8 @@
 -- Populando as tabelas para realizar consultas
 INSERT INTO departamento (dnome, dnumero, dgerssn) VALUES
-('Recursos Humanos', 1, '123-45-6789'),
-('Tecnologia da Informação', 2, '987-65-4321'),
-('Gerência de Qualidade de Dados', 3, '456-78-1234');
+('Recursos Humanos', 1, 'E00234'), -- Ana Oliveira
+('Tecnologia da Informação', 2, 'E00120'), -- Carlos Silva
+('Gerência de Qualidade de Dados', 3, 'E00345'); -- Maria Souza
 
 INSERT INTO empregado (ssn, datanasc, endereco, dnumero, enome) VALUES
 ('E00120', '1990-06-15', 'Rua Teldomiro Santiago, 123', 2, 'Carlos Silva'),
