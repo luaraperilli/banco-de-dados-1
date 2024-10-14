@@ -42,3 +42,45 @@ FROM projeto p
 LEFT JOIN alocacao a ON p.codigo = a.codp
 LEFT JOIN funcionario f ON a.codf = f.codigo;
 
+-- Retorne a quantidade de funcionários que possuem @unifei no email
+SELECT COUNT(email)
+FROM funcionario
+WHERE email LIKE '%@unifei%';
+
+-- Retorne a soma de horas trabalhadas em todos os projetos
+SELECT SUM(horas)
+FROM alocacao;
+
+-- Retorne a soma de horas trabalhadas em todos os projetos no ano de 2017
+-- EXTRACT pode não ser utilizado em qualquer SGBD
+SELECT SUM(horas)
+FROM alocacao
+WHERE EXTRACT(YEAR FROM datai) = 2017;
+
+-- SQL padrão:
+SELECT SUM(horas)
+FROM alocacao
+WHERE datai BETWEEN '2017-01-01' AND '2017-12-31';
+
+-- Retorne a quantidade de funcionários por departamento
+SELECT nome, SUM(qtde)
+FROM departamento
+GROUP BY nome;
+
+-- Retorne a soma da quantidade de horas por projeto
+SELECT p.nome, SUM(a.horas) AS total_horas
+FROM projeto p JOIN alocacao a ON p.codigo = a.codp
+GROUP BY p.nome;
+
+-- Retorne a soma da quantidade de horas por projetos, somente para aqueles cuja soma > 40
+SELECT p.nome, SUM(a.horas) AS total_horas
+FROM projeto p JOIN alocacao a ON p.codigo = a.codp
+GROUP BY p.nome
+HAVING SUM(a.horas) > 40;
+
+-- Retorne a soma da quantidade de horas por projetos, somente para aqueles que iniciaram em 2017 e cuja soma > 40
+SELECT p.nome, SUM(a.horas) AS total_horas
+FROM projeto p JOIN alocacao a ON p.codigo = a.codp
+WHERE EXTRACT(YEAR FROM a.datai) = 2016
+GROUP BY p.nome
+HAVING SUM(a.horas) > 4;
