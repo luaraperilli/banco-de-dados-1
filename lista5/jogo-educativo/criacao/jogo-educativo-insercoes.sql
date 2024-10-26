@@ -1,5 +1,3 @@
--- Inserindo registros nas tabelas de forma criativa
-
 INSERT INTO jogo (codigo, descricao, duracaoMaxima) VALUES
 (1, 'Aventuras Matemáticas', 60),
 (2, 'Memória Espacial', 45);
