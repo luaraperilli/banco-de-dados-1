@@ -1,8 +1,3 @@
-SELECT * FROM consulta;
-SELECT * FROM medico;
-SELECT * FROM paciente;
-SELECT * FROM receita;
-
 -- A. Retorne o nome do médico das consultas realizadas em fevereiro de 2020
 SELECT m.nomemedico, c.data
 FROM consulta c 
