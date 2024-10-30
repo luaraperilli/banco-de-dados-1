@@ -199,7 +199,7 @@ FROM conta
 WHERE nome_agencia = 'Centro';
 
 -- Quantidade de contas das agências do Centro:
-SELECT count(*)
+SELECT COUNT(*)
 FROM conta 
 WHERE nome_agencia = 'Centro';
 

@@ -99,3 +99,74 @@ LEFT JOIN empregado ON departamento.dnumero = empregado.dnumero
 WHERE departamento.dnome LIKE '%PRP%'
 GROUP BY departamento.dnome
 HAVING COUNT(empregado.ssn) > 5;
+
+-- Retorne o ssn de todos os empregados que trabalham em algum projeto mais que algum empregado no projeto ‘101’
+-- Subconsulta busca o máximo de horas que qualquer empregado trabalhou no projeto 101
+SELECT DISTINCT t1.ssn 
+FROM trabalha_em t1 
+WHERE t1.horas > (
+    SELECT MAX(t2.horas) 
+    FROM trabalha_em t2 
+    WHERE t2.pnumero = '101');
+
+-- Retorne o ssn de todos os empregados que trabalham em algum projeto mais que todos os empregado no projeto ‘101’
+SELECT DISTINCT t1.ssn 
+FROM trabalha_em t1 
+WHERE t1.horas > ALL (
+    SELECT t2.horas 
+    FROM trabalha_em t2 
+    WHERE t2.pnumero = '101');
+
+-- Retorne os nomes de todos os empregados que trabalham em algum projeto mais que algum empregado no projeto ‘101’
+SELECT DISTINCT e.enome 
+FROM empregado e 
+JOIN trabalha_em t ON e.ssn = t.ssn 
+WHERE t.horas > (
+    SELECT MAX(t2.horas) 
+    FROM trabalha_em t2 
+    WHERE t2.pnumero = '101');
+
+-- Encontre todos os empregados (ssn) que trabalham com a mesma combinação (projeto,horas) do empregado com código E001 no projeto ‘101’
+SELECT t1.ssn 
+FROM trabalha_em t1 
+WHERE t1.pnumero = '101' 
+AND t1.horas = (
+    SELECT t2.horas 
+    FROM trabalha_em t2 
+    WHERE t2.ssn = 'E001' AND t2.pnumero = '101');
+
+-- Retorne o ssn dos empregados que trabalham mais que a média de horas trabalhadas
+-- Subconsulta calcula a média de horas trabalhadas
+SELECT ssn 
+FROM trabalha_em 
+GROUP BY ssn 
+HAVING SUM(horas) >	(
+	SELECT AVG(horas) 
+	FROM trabalha_em); 
+
+-- Retorne o ssn dos empregados que trabalham em todos os projetos
+-- Subconsulta calcula o total de projetos
+SELECT ssn
+FROM trabalha_em
+GROUP BY ssn
+HAVING COUNT(DISTINCT pnumero) = (
+	SELECT COUNT(*) 
+	FROM projeto);
+
+-- Retorne o código dos projetos que possuem todos os empregados alocados
+-- Subconsulta calcula o total de empregados
+SELECT pnumero
+FROM trabalha_em
+GROUP BY pnumero
+HAVING COUNT(DISTINCT ssn) = (
+	SELECT COUNT(*) 
+	FROM empregado);
+	
+-- Retorne o nome dos projetos que possuem todos os empregados alocados
+SELECT p.pnome
+FROM projeto p
+JOIN trabalha_em t ON p.pnumero = t.pnumero
+GROUP BY p.pnome
+HAVING COUNT(DISTINCT t.ssn) = (
+	SELECT COUNT(*) 
+	FROM empregado);

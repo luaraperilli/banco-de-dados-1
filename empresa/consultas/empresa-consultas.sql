@@ -84,3 +84,33 @@ FROM projeto p JOIN alocacao a ON p.codigo = a.codp
 WHERE EXTRACT(YEAR FROM a.datai) = 2016
 GROUP BY p.nome
 HAVING SUM(a.horas) > 4;
+
+-- Retorne o código dos funcionários que já trabalharam em todos os projetos
+SELECT codf 
+FROM alocacao
+GROUP BY codf -- Agrupa as alocações por funcionário 
+HAVING COUNT(DISTINCT codp) =  -- Filtra apenas cuja contagem de projetos é igual ao total de projetos
+	(SELECT COUNT(*) 
+	FROM projeto);
+
+-- Retorne o nome dos funcionários que já trabalharam em todos os projetos
+-- Para retornar o nome é necessário unir com a tabela funcionário pois alocação só tem o código do funcionário mas não o nome
+SELECT f.nome
+FROM funcionario f
+JOIN alocacao a ON f.codigo = a.codf
+GROUP BY f.codigo 
+HAVING COUNT(DISTINCT codp) =
+	(SELECT COUNT(*) 
+	FROM projeto);
+
+-- Retorne todos os funcionários que trabalham no mesmo departamento que o de código = 1
+SELECT nome
+FROM funcionario
+WHERE codept = '1';
+
+-- Retorne todos os projetos que possuem a mesma combinação de datas do projeto com código = 1
+Utiliza subconsultas para obter as datas inicial e final do projeto de código 1
+SELECT * 
+FROM projeto
+WHERE datai = (SELECT datai FROM projeto WHERE codigo = 1)
+AND dataf = (SELECT dataf FROM projeto WHERE codigo = 1);
