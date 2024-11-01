@@ -1,9 +1,10 @@
 -- Data Definition Language
 -- Parte que define o esquema do banco de dados como tipos, informações, restrições de integridade e relacionamento das tabelas
--- Comandos como Create, Drop, e Alter
+-- Comandos como Create, Drop e Alter
 
 -- Data Manipulation Language
 -- Parte da linguagem para manipulação dos dados
+-- Comandos como Select, Insert, Update e Delete
 
 -- Criar tabela:
 CREATE TABLE nomeTabela (
