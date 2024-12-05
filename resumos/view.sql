@@ -14,6 +14,7 @@
 -- Visão Materializada:
 -- Os dados são armazenados fisicamente no banco e não refletem automaticamente alterações na tabela base.
 -- É necessário usar o comando REFRESH MATERIALIZED VIEW para atualizar os dados. Útil para melhorar desempenho em consultas complexas, evitando recalcular os dados sempre
+-- Por si só, não são atualizáveis diretamente (ou seja, você não pode fazer INSERT, UPDATE ou DELETE diretamente na visão). As mudanças devem ser feitas nas tabelas base e, depois, o comando REFRESH deve ser executado para que os dados reflitam na visão materializada
 
 -- Estrutura da view
 CREATE VIEW nomedaview AS (SELECT especificacaodoselect);
